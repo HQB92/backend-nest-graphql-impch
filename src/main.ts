@@ -5,6 +5,7 @@ import * as passport from 'passport';
 import 'dotenv/config';
 import { UsersService } from './users/users.service';
 
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -38,5 +39,5 @@ async function bootstrap() {
   await app.listen(4005);
 }
 bootstrap().then(() =>
-  console.log('Server is running on http://localhost:4005'),
+  console.log('🚀 El Servidor Esta Corriendo en el puerto:4005 🚀'),
 );

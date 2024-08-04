@@ -5,13 +5,16 @@ import {
   DataType,
   AfterCreate,
 } from 'sequelize-typescript';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Member } from './member.model';
 
+@ObjectType()
 @Table({
   tableName: 'Users',
   timestamps: true,
 })
 export class User extends Model<User> {
+  @Field()
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -19,12 +22,14 @@ export class User extends Model<User> {
   })
   id: number;
 
+  @Field()
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   username: string;
 
+  @Field()
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -37,12 +42,14 @@ export class User extends Model<User> {
   })
   rut: string;
 
+  @Field()
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   email: string;
 
+  @Field()
   @Column({
     type: DataType.ARRAY(DataType.STRING),
     allowNull: false,
@@ -50,6 +57,7 @@ export class User extends Model<User> {
   })
   roles: string[];
 
+  @Field()
   @AfterCreate
   static async afterCreateHook(instance: User) {
     await Member.update(
