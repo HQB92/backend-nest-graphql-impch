@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
+import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
 import { User } from '../models/user.model';
 
@@ -22,7 +22,7 @@ import { User } from '../models/user.model';
     }),
     SequelizeModule.forFeature([User]),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, LocalStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
