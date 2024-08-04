@@ -4,6 +4,8 @@ import { User } from '../models/user.model';
 import { Member } from '../models/member.model';
 import * as dotenv from 'dotenv';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Church } from '../models/church.model';
+import { Status } from '../models/status.model';
 dotenv.config();
 
 @Module({
@@ -20,13 +22,12 @@ dotenv.config();
         username: configService.get<string>('PGUSER'),
         password: configService.get<string>('PGPASSWORD'),
         database: configService.get<string>('PGDATABASE'),
-        autoLoadModels: false,
+        autoLoadModels: true,
         synchronize: false,
-        models: [User, Member],
       }),
       inject: [ConfigService],
     }),
-    SequelizeModule.forFeature([User, Member]),
+    SequelizeModule.forFeature([User, Member, Church, Status]),
   ],
   exports: [SequelizeModule],
 })
