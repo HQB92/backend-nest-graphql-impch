@@ -16,7 +16,7 @@ export class AuthService {
     const user = await this.userService.findOne({ where: { username } });
     console.log(user);
     if (user && bcrypt.compareSync(password, user.password)) {
-      return user;
+      return await this.login(user);
     }
     return null;
   }
