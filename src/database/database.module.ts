@@ -1,26 +1,31 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from '../models/user.model';
-import { Member } from '../models/member.model';
-import { Church } from '../models/church.model';
-import { Status } from '../models/status.model';
 import * as dotenv from 'dotenv';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 dotenv.config();
 
-const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 @Module({
   imports: [
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: PGHOST,
-      port: 5432,
-      username: PGUSER,
-      password: PGPASSWORD,
-      database: PGDATABASE,
-      models: [User, Member, Church, Status],
-      autoLoadModels: true,
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
+    SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        dialect: 'postgres',
+        host: configService.get<string>('PGHOST'),
+        port: +configService.get<number>('PGPORT'),
+        username: configService.get<string>('PGUSER'),
+        password: configService.get<string>('PGPASSWORD'),
+        database: configService.get<string>('PGDATABASE'),
+        autoLoadModels: false,
+        synchronize: false,
+      }),
+      inject: [ConfigService],
+    }),
+    SequelizeModule.forFeature([User]),
   ],
+  exports: [SequelizeModule],
 })
 export class DatabaseModule {}
