@@ -15,7 +15,7 @@ dotenv.config();
       useFactory: async (configService: ConfigService) => ({
         dialect: 'postgres',
         host: configService.get<string>('PGHOST'),
-        port: +configService.get<number>('PGPORT'),
+        port: 5432,
         username: configService.get<string>('PGUSER'),
         password: configService.get<string>('PGPASSWORD'),
         database: configService.get<string>('PGDATABASE'),
