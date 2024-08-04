@@ -18,7 +18,7 @@ const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
       database: PGDATABASE,
       models: [User, Member, Church, Status],
       autoLoadModels: true,
-      synchronize: true,
+      synchronize: false,
     }),
   ],
 })

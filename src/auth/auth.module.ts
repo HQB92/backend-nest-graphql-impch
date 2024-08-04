@@ -16,7 +16,7 @@ import { User } from '../models/user.model';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('SECRET_KEY'),
-        signOptions: { expiresIn: '60m' },
+        signOptions: { expiresIn: '180m' },
       }),
       inject: [ConfigService],
     }),
