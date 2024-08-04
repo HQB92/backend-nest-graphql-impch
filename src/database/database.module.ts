@@ -3,6 +3,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from '../models/user.model';
 import * as dotenv from 'dotenv';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Member } from '../models/member.model';
+import { Status } from '../models/status.model';
+import { Church } from '../models/church.model';
 dotenv.config();
 
 @Module({
@@ -24,7 +27,7 @@ dotenv.config();
       }),
       inject: [ConfigService],
     }),
-    SequelizeModule.forFeature([User]),
+    SequelizeModule.forFeature([User, Member, Status, Church]),
   ],
   exports: [SequelizeModule],
 })

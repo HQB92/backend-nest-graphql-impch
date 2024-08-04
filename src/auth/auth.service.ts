@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from '../models/user.model';
 import * as bcrypt from 'bcryptjs';
+import { User } from '../models/user.model';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User)
-    private userModel: typeof User,
+    private userService: typeof User,
     private jwtService: JwtService,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.userModel.findOne({ where: { username } });
+    const user = await this.userService.findOne({ where: { username } });
     console.log(user);
     if (user && bcrypt.compareSync(password, user.password)) {
       return user;
