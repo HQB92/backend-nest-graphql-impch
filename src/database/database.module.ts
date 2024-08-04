@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from '../models/user.model';
+import { Member } from '../models/member.model';
 import * as dotenv from 'dotenv';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 dotenv.config();
@@ -21,10 +22,11 @@ dotenv.config();
         database: configService.get<string>('PGDATABASE'),
         autoLoadModels: false,
         synchronize: false,
+        models: [User, Member],
       }),
       inject: [ConfigService],
     }),
-    SequelizeModule.forFeature([User]),
+    SequelizeModule.forFeature([User, Member]),
   ],
   exports: [SequelizeModule],
 })
