@@ -4,9 +4,9 @@ type MerriageRecordQuery {
 }
 
 type MerriageRecordMutation {
-    create(merriageRecord: MerriageRecordInput!): Response
-    #update(merriageRecord: MerriageRecordInput): Response
-    #delete(id: ID!): Response
+    create(merriageRecord: MerriageRecordInput!): ResponseMutation
+    #update(merriageRecord: MerriageRecordInput): ResponseMutation
+    #delete(id: ID!): ResponseMutation
 }
 
 type MerriageRecord {

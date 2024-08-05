@@ -6,6 +6,11 @@ type Response {
     data: JSON
 }
 
+type ResponseMutation {
+    code: Int!
+    message: String!
+}
+
 type Mutation {
     User: UserMutations
     Member: MemberMutation

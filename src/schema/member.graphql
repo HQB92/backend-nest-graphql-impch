@@ -5,9 +5,9 @@ type MemberQuery {
     count: Int
 }
 type MemberMutation {
-    create(member: MemberInput!): Response
-    update(member: MemberInput): Response
-    delete(rut: String!): Response
+    create(member: MemberInput!): ResponseMutation
+    update(member: MemberInput): ResponseMutation
+    delete(rut: String!): ResponseMutation
 }
 type Member {
     rut: ID!

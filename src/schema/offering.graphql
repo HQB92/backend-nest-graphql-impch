@@ -5,9 +5,9 @@ type OfferingQuery {
 }
 
 type OfferingMutation {
-    create(offering: OfferingInput!): Response
-    update(offering: OfferingInput): Response
-    delete(id: Int!): Response
+    create(offering: OfferingInput!): ResponseMutation
+    update(offering: OfferingInput): ResponseMutation
+    delete(id: Int!): ResponseMutation
 }
 
 type Offering {

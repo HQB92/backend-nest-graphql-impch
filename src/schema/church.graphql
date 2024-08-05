@@ -4,9 +4,9 @@ type ChurchQuery {
     getByName(name: String!): Church
 }
 type ChurchMutation {
-    create(name: String!, address: String!): Response
-    update(id: ID!, name: String, address: String): Response
-    delete(id: ID!): Response
+    create(name: String!, address: String!): ResponseMutation
+    update(id: ID!, name: String, address: String): ResponseMutation
+    delete(id: ID!): ResponseMutation
 }
 type Church {
     id: ID

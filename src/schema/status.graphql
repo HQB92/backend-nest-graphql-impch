@@ -3,9 +3,9 @@ type StatusQuery {
     getById(id: ID!): Status
 }
 type StatusMutation {
-    create(name: String!, description: String!): Response
-    update(id: ID!, name: String, description: String): Response
-    delete(id: ID!): Response
+    create(name: String!, description: String!): ResponseMutation
+    update(id: ID!, name: String, description: String): ResponseMutation
+    delete(id: ID!): ResponseMutation
 }
 type Status {
     id: ID
