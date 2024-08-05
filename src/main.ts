@@ -4,7 +4,7 @@ import * as session from 'express-session';
 import * as passport from 'passport';
 import 'dotenv/config';
 import { UsersService } from './users/users.service';
-
+import { GqlCustomExceptionFilter } from './common/filters/graphql-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -36,8 +36,9 @@ async function bootstrap() {
         done(err, null);
       });
   });
-  await app.listen(4010);
+  app.useGlobalFilters(new GqlCustomExceptionFilter());
+  await app.listen(4000);
 }
 bootstrap().then(() =>
-  console.log('🚀 El Servidor Esta Corriendo en el puerto:4010 🚀'),
+  console.log('🚀 El Servidor Esta Corriendo en el puerto:4000 🚀'),
 );

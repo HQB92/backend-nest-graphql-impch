@@ -8,6 +8,7 @@ import {
 } from './users.resolver';
 import { User } from '../models/user.model';
 import { DatabaseModule } from '../database/database.module';
+import { LoggerService } from '../common/loggers/logger.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([User]), DatabaseModule],
@@ -16,6 +17,7 @@ import { DatabaseModule } from '../database/database.module';
     UserResolver,
     UserMutationsResolver,
     UserQueriesResolver,
+    LoggerService,
   ],
 })
 export class UsersModule {}

@@ -10,14 +10,14 @@ type UserMutations {
   create(user: UserInput!): Response
   update(user: UserInput!): Response
   delete(id: ID!): Response
-  changePassword(id: ID!, password: String!): Response
-  resetPassword(id: ID!): Response
+#  changePassword(id: ID!, password: String!): Response
+#  resetPassword(id: ID!): Response
 }
 
 type UserQueries {
   getAll: Response
   getById(id: ID!): Response
-  getByUsername(username: String!): Response
+#  getByUsername(username: String!): Response
 }
 
 input UserInput {

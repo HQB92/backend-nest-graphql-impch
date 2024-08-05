@@ -3,7 +3,6 @@ import {
   Query,
   Mutation,
   Args,
-  Context,
   ObjectType,
   Field,
   ResolveField,
@@ -12,41 +11,58 @@ import { UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../models/user.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
+import { ResponseData, Response, ResponseArray } from '../types/response.type';
+import { LoggerService } from '../common/loggers/logger.service';
 
 @ObjectType()
 class UserQueries {
   @Field(() => [User])
-  getAllUsers!: () => Promise<User[]>;
+  getAll!: () => Promise<User[]>;
 
   @Field(() => User, { nullable: true })
-  getUserById!: (id: number) => Promise<User | null>;
+  getById!: (id: number) => Promise<User | null>;
 }
 
 @ObjectType()
 class UserMutations {
-  @Field(() => User)
-  createUser!: (username: string, password: string, rut: string) => Promise<User>;
+  @Field(() => Response)
+  create!: (
+    username: string,
+    password: string,
+    rut: string,
+  ) => Promise<Response>;
 
-  @Field(() => User, { nullable: true })
-  updateUser!: (id: number, username: string, password: string, rut: string) => Promise<User | null>;
+  @Field(() => Response, { nullable: true })
+  update!: (
+    id: number,
+    username: string,
+    password: string,
+    rut: string,
+  ) => Promise<Response>;
 
-  @Field(() => Boolean)
-  deleteUser!: (id: number) => Promise<boolean>;
+  @Field(() => Response)
+  delete!: (id: number) => Promise<Response>;
 }
 
 @Resolver(() => UserQueries)
 export class UserQueriesResolver {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private readonly logger: LoggerService,
+  ) {}
 
   @UseGuards(GqlAuthGuard)
-  @ResolveField(() => [User])
-  async getAllUsers() {
-    return this.usersService.findAllUsers();
+  @ResolveField(() => ResponseArray)
+  async getAll() {
+    const data = await this.usersService.findAllUsers();
+    this.logger.debug('User - findAll - Service - Response:', data);
+    this.logger.log('User - findAll - Service - End');
+    return data;
   }
 
   @UseGuards(GqlAuthGuard)
-  @ResolveField(() => User)
-  async getUserById(@Args('id') id: number) {
+  @ResolveField(() => ResponseData)
+  async getById(@Args('id') id: number): Promise<ResponseData> {
     return this.usersService.findUserById(id);
   }
 }
@@ -57,17 +73,25 @@ export class UserMutationsResolver {
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => User)
-  async createUser(
+  async create(
     @Args('username') username: string,
     @Args('password') password: string,
     @Args('rut') rut: string,
+    @Args('roles') roles: string[],
+    @Args('email') email: string,
   ) {
-    return this.usersService.createUser({ username, password, rut });
+    return this.usersService.createUser({
+      username,
+      password,
+      rut,
+      roles,
+      email,
+    });
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => User)
-  async updateUser(
+  async update(
     @Args('id') id: number,
     @Args('username') username: string,
     @Args('password') password: string,
@@ -78,7 +102,7 @@ export class UserMutationsResolver {
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => Boolean)
-  async deleteUser(@Args('id') id: number) {
+  async delete(@Args('id') id: number) {
     return this.usersService.deleteUser(id);
   }
 }

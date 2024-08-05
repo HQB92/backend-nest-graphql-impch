@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
 import { User } from '../models/user.model';
+import { AuthMiddleware } from '../common/middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { User } from '../models/user.model';
     }),
     SequelizeModule.forFeature([User]),
   ],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, AuthMiddleware],
   controllers: [AuthController],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
