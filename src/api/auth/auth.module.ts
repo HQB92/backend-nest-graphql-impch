@@ -6,8 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
-import { User } from '../models/user.model';
-import { AuthMiddleware } from '../common/middleware/auth.middleware';
+import { User } from '../../models/user.model';
+import { AuthMiddleware } from '../../common/middleware/auth.middleware';
 
 @Module({
   imports: [

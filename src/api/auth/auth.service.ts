@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcryptjs';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

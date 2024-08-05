@@ -23,6 +23,7 @@ type UserQueries {
 input UserInput {
   id: Int
   username: String
+  rut: String
   email: String
   roles: [String]
   password: String

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 import * as bcrypt from 'bcryptjs';
 import { Sequelize } from 'sequelize-typescript';
-import { Response, ResponseArray, ResponseData } from '../types/response.type';
-import { CustomGraphQLError } from '../common/errors/custom-error';
-import { LoggerService } from '../common/loggers/logger.service';
+import { Response, ResponseArray, ResponseData } from '../../types/response.type';
+import { CustomGraphQLError } from '../../common/errors/custom-error';
+import { LoggerService } from '../../common/loggers/logger.service';
 
 @Injectable()
 export class UsersService {
@@ -44,7 +44,7 @@ export class UsersService {
   async createUser(args: any): Promise<Response> {
     this.logger.log('User - create - Service - Start:');
     this.logger.info('User - create - Service', args);
-    const { username, password, rut, email, roles } = args;
+    const { username, password, rut, email, roles } = args.user;
     const hashedPassword = bcrypt.hashSync(password, 10);
     const user = await this.userModel.findOne({ where: { username } });
     if (user) {

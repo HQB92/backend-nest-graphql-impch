@@ -6,9 +6,9 @@ import {
   UserMutationsResolver,
   UserQueriesResolver,
 } from './users.resolver';
-import { User } from '../models/user.model';
-import { DatabaseModule } from '../database/database.module';
-import { LoggerService } from '../common/loggers/logger.service';
+import { User } from '../../models/user.model';
+import { DatabaseModule } from '../../database/database.module';
+import { LoggerService } from '../../common/loggers/logger.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([User]), DatabaseModule],

@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import 'dotenv/config';
-import { UsersService } from './users/users.service';
+import { UsersService } from './api/users/users.service';
 import { GqlCustomExceptionFilter } from './common/filters/graphql-exception.filter';
 
 async function bootstrap() {
@@ -37,8 +37,11 @@ async function bootstrap() {
       });
   });
   app.useGlobalFilters(new GqlCustomExceptionFilter());
-  await app.listen(4000);
+  await app.listen(4001);
 }
-bootstrap().then(() =>
-  console.log('🚀 El Servidor Esta Corriendo en el puerto:4000 🚀'),
-);
+
+bootstrap().then(() => {
+  console.warn('[Zanartu] 🚀 Server ready successfully 🚀');
+  console.warn('[Zanartu] 🚀 Patch :/auth/login');
+  console.warn('[Zanartu] 🚀 Patch :/graphql');
+});

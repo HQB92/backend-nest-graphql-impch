@@ -52,7 +52,7 @@ export class User extends Model<User> {
   @Field(() => [String])
   @Column({
     type: DataType.ARRAY(DataType.STRING),
-    allowNull: false,
+    allowNull: true,
     defaultValue: [],
   })
   roles: string[];

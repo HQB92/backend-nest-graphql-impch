@@ -1,15 +1,26 @@
-
 scalar JSON
 scalar Date
 type Response {
-  code: Int!
-  message: String!
-  data: JSON
+    code: Int!
+    message: String!
+    data: JSON
 }
 
 type Mutation {
-  User: UserMutations
+    User: UserMutations
+    Member: MemberMutation
+    Church: ChurchMutation
+    Status: StatusMutation
+    Offering: OfferingMutation
+    BaptismRecord: BaptismRecordMutation
+    MerriageRecord: MerriageRecordMutation
 }
 type Query {
-  User: UserQueries
+    User: UserQueries
+    Member: MemberQuery
+    Church: ChurchQuery
+    Status: StatusQuery
+    Offering: OfferingQuery
+    BaptismRecord: BaptismRecordQuery
+    MerriageRecord: MerriageRecordQuery
 }

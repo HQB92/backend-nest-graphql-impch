@@ -1,6 +1,7 @@
 import { Injectable, LoggerService as NestLoggerService } from '@nestjs/common';
 import * as moment from 'moment-timezone';
 import * as console from 'node:console';
+import { response } from 'express';
 
 @Injectable()
 export class LoggerService implements NestLoggerService {
@@ -9,7 +10,7 @@ export class LoggerService implements NestLoggerService {
   }
 
   info(message: string, args: any) {
-    console.info(`[INFO] - ${message} - Args ${args}`); // Info log
+    console.info(`[INFO] - ${message} - Args ${JSON.stringify(args)}`); // Info log
   }
 
   error(message: string) {

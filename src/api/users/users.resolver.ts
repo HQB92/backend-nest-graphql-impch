@@ -9,10 +9,10 @@ import {
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
-import { ResponseData, Response, ResponseArray } from '../types/response.type';
-import { LoggerService } from '../common/loggers/logger.service';
+import { ResponseData, Response, ResponseArray } from '../../types/response.type';
+import { LoggerService } from '../../common/loggers/logger.service';
 
 @ObjectType()
 class UserQueries {
@@ -30,6 +30,8 @@ class UserMutations {
     username: string,
     password: string,
     rut: string,
+    roles: string[],
+    email: string,
   ) => Promise<Response>;
 
   @Field(() => Response, { nullable: true })
@@ -73,20 +75,8 @@ export class UserMutationsResolver {
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => User)
-  async create(
-    @Args('username') username: string,
-    @Args('password') password: string,
-    @Args('rut') rut: string,
-    @Args('roles') roles: string[],
-    @Args('email') email: string,
-  ) {
-    return this.usersService.createUser({
-      username,
-      password,
-      rut,
-      roles,
-      email,
-    });
+  async create(_: any, args: any) {
+    return this.usersService.createUser(args);
   }
 
   @UseGuards(GqlAuthGuard)
