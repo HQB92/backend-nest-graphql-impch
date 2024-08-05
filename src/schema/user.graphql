@@ -1,0 +1,37 @@
+type Mutation {
+  User: UserMutations
+}
+
+type Query {
+  User: UserQueries
+}
+
+type User {
+  id: ID
+  rut: ID
+  username: String
+  email: String
+  roles: [String]
+}
+
+type UserMutation {
+  create(user: UserInput!): Response
+  update(user: UserInput!): Response
+  delete(id: ID!): Response
+  changePassword(id: ID!, password: String!): Response
+  resetPassword(id: ID!): Response
+
+}
+
+type UserQueries {
+  getAll: [User]
+  getById(id: ID!): User
+  getByUsername(username: String!): User
+}
+input UserInput {
+  id: Int
+  username: String
+  email: String
+  roles: [String]
+  password: String
+}

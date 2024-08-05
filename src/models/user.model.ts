@@ -49,7 +49,7 @@ export class User extends Model<User> {
   })
   email: string;
 
-  @Field()
+  @Field(() => [String])
   @Column({
     type: DataType.ARRAY(DataType.STRING),
     allowNull: false,
@@ -57,7 +57,6 @@ export class User extends Model<User> {
   })
   roles: string[];
 
-  @Field()
   @AfterCreate
   static async afterCreateHook(instance: User) {
     await Member.update(

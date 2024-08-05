@@ -5,7 +5,6 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 
 @Module({
   imports: [
@@ -14,9 +13,12 @@ import { join } from 'path';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
+      typePaths: ['./**/*.graphql'],
+
+      path: '/graphql',
       context: ({ req, res }) => ({ req, res }),
+      playground: true,
+      introspection: true,
     }),
     DatabaseModule,
     AuthModule,
