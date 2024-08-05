@@ -1,11 +1,3 @@
-type Mutation {
-  User: UserMutations
-}
-
-type Query {
-  User: UserQueries
-}
-
 type User {
   id: ID
   rut: ID
@@ -14,20 +6,20 @@ type User {
   roles: [String]
 }
 
-type UserMutation {
+type UserMutations {
   create(user: UserInput!): Response
   update(user: UserInput!): Response
   delete(id: ID!): Response
   changePassword(id: ID!, password: String!): Response
   resetPassword(id: ID!): Response
-
 }
 
 type UserQueries {
-  getAll: [User]
-  getById(id: ID!): User
-  getByUsername(username: String!): User
+  getAll: Response
+  getById(id: ID!): Response
+  getByUsername(username: String!): Response
 }
+
 input UserInput {
   id: Int
   username: String
