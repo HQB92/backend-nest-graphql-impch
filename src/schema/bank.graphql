@@ -1,0 +1,39 @@
+type BankQuery {
+    getAll(user: Int, churchId: Int, mes: Int, anio: Int): [Bank]
+    getSummaryAll(mes: Int, anio: Int, churchId:Int): [SummaryBankChurch]
+    getSummaryByChurch(churchId: Int, mes: Int, anio: Int): SummaryBankChurch
+}
+
+type BankMutation {
+    create(offering: OfferingInput!): ResponseMutation
+    update(offering: OfferingInput): ResponseMutation
+    delete(id: Int!): ResponseMutation
+}
+
+type Bank {
+    id: Int!
+    amount: Int!
+    date: Date!
+    type: String
+    churchId: Int!
+    userId: Int!
+    state: Boolean!
+}
+
+input BankInput {
+    id: Int
+    amount: Int
+    date: Date
+    type: String
+    churchId: Int
+    userId: Int
+    state: Boolean
+}
+
+type SummaryBankChurch {
+    churchId: Int
+    name: String
+    total: Int
+    count: Int
+}
+

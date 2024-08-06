@@ -16,6 +16,7 @@ import { MarriageRecordModule } from './api/marriage-record/marriage-record.modu
 import { MemberModule } from './api/member/member.module';
 import { ChurchModule } from './api/church/church.module';
 import { BaptismRecordModule } from './api/baptism-record/baptism-record.module';
+import { BankModule } from './api/bank/bank.module';
 
 interface GraphQLErrorExtensions {
   code?: number;
@@ -54,6 +55,7 @@ interface GraphQLErrorExtensions {
     MemberModule,
     ChurchModule,
     BaptismRecordModule,
+    BankModule,
   ],
   providers: [GqlAuthGuard, LoggerService],
   exports: [LoggerService],
@@ -61,7 +63,7 @@ interface GraphQLErrorExtensions {
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(AuthMiddleware)
+      .apply(AuthMiddleware, TransformResponseMiddleware)
       .forRoutes({ path: '/graphql', method: RequestMethod.ALL });
   }
 }

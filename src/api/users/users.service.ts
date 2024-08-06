@@ -3,7 +3,11 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../../models/user.model';
 import * as bcrypt from 'bcryptjs';
 import { Sequelize } from 'sequelize-typescript';
-import { Response, ResponseArray, ResponseData } from '../../types/response.type';
+import {
+  Response,
+  ResponseArray,
+  ResponseData,
+} from '../../types/response.type';
 import { CustomGraphQLError } from '../../common/errors/custom-error';
 import { LoggerService } from '../../common/loggers/logger.service';
 
