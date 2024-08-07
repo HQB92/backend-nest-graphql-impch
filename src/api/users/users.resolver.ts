@@ -11,7 +11,11 @@ import { UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../../models/user.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
-import { ResponseData, Response, ResponseArray } from '../../types/response.type';
+import {
+  ResponseData,
+  Response,
+  ResponseArray,
+} from '../../types/response.type';
 import { LoggerService } from '../../common/loggers/logger.service';
 
 @ObjectType()

@@ -67,12 +67,12 @@ export class BaptismRecordService {
         this.logger.error(
           'BaptismRecord - create - Service - Record already exists',
         );
-        throw new CustomGraphQLError('Registro de bautizo ya existe', 400);
+        throw new CustomGraphQLError('Record already exists', 400);
       }
       await this.baptismRecordModel.create(baptismRecordData);
       return {
         code: 200,
-        message: 'Registro de bautizo creado Exitosamente',
+        message: 'Record created successfully',
       };
     } catch (error) {
       this.logger.error(
@@ -91,7 +91,7 @@ export class BaptismRecordService {
       });
       return {
         code: 200,
-        message: 'Registro de bautizo actualizado Exitosamente',
+        message: 'Record updated successfully',
       };
     } catch (error) {
       this.logger.error(
@@ -109,11 +109,11 @@ export class BaptismRecordService {
         this.logger.error(
           'BaptismRecord - delete - Service - Record not found',
         );
-        throw new CustomGraphQLError('Registro de bautizo no existe', 404);
+        throw new CustomGraphQLError('Record not found', 404);
       }
       return {
         code: 200,
-        message: 'Registro de bautizo eliminado Exitosamente',
+        message: 'Record deleted successfully',
       };
     } catch (error) {
       this.logger.error(

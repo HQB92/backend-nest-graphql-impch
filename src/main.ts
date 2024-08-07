@@ -37,7 +37,7 @@ async function bootstrap() {
       });
   });
   app.useGlobalFilters(new GqlCustomExceptionFilter());
-  await app.listen(4001);
+  await app.listen(4000);
 }
 
 bootstrap().then(() => {

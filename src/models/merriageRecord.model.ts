@@ -4,7 +4,7 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
   tableName: 'merriageRecords',
   timestamps: true,
 })
-export class MarriageRecord extends Model<MarriageRecord> {
+export class MerriageRecord extends Model<MerriageRecord> {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,

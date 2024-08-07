@@ -6,7 +6,7 @@ import { Church } from '../models/church.model';
 import { Status } from '../models/status.model';
 import 'dotenv/config';
 import { Bank } from '../models/bank.model';
-import { MarriageRecord } from '../models/merriageRecord.model';
+import { MerriageRecord } from '../models/merriageRecord.model';
 import { BaptismRecord } from '../models/baptismRecord.model';
 import { Offering } from '../models/offering.model';
 
@@ -26,7 +26,7 @@ const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
         Church,
         Status,
         Bank,
-        MarriageRecord,
+        MerriageRecord,
         BaptismRecord,
         Offering,
       ],

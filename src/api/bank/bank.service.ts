@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Bank } from '../../models/bank.model';
 import { Sequelize } from 'sequelize-typescript';
 import { LoggerService } from '../../common/loggers/logger.service';
 import { CustomGraphQLError } from '../../common/errors/custom-error';
 import { fn, col, Op, literal } from 'sequelize';
+import { OfferingService } from '../offering/offering.service';
 
 @Injectable()
 export class BankService {
@@ -13,13 +14,15 @@ export class BankService {
     private bankModel: typeof Bank,
     private sequelize: Sequelize,
     private readonly logger: LoggerService,
+    @Inject(forwardRef(() => OfferingService))
+    private offeringService: OfferingService,
   ) {}
 
   async getSummaryBank(month: number, year: number) {
     this.logger.log('Bank - getSummaryBank - Service - Start:');
     this.logger.info('Bank - getSummaryBank - Service', { month, year });
     try {
-      const results = await this.bankModel.findAll({
+      const results: any = await this.bankModel.findAll({
         attributes: [
           'churchId',
           [fn('sum', col('amount')), 'total'],

@@ -12,7 +12,7 @@ import { AuthMiddleware } from './common/middleware/auth.middleware';
 import { LoggerService } from './common/loggers/logger.service';
 import { StatusModule } from './api/status/status.module';
 import { OfferingModule } from './api/offering/offering.module';
-import { MarriageRecordModule } from './api/marriage-record/marriage-record.module';
+import { MerriageRecordModule } from './api/merriage-record/merriage-record.module';
 import { MemberModule } from './api/member/member.module';
 import { ChurchModule } from './api/church/church.module';
 import { BaptismRecordModule } from './api/baptism-record/baptism-record.module';
@@ -51,7 +51,7 @@ interface GraphQLErrorExtensions {
     UsersModule,
     StatusModule,
     OfferingModule,
-    MarriageRecordModule,
+    MerriageRecordModule,
     MemberModule,
     ChurchModule,
     BaptismRecordModule,

@@ -12,7 +12,7 @@ import { User } from './user.model';
 
 @Table({
   tableName: 'Members',
-  timestamps: false, // Ajustar según tus necesidades
+  timestamps: true,
 })
 export class Member extends Model<Member> {
   @Column({
