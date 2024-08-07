@@ -1,5 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from '../models/user.model';
+import { Member } from '../models/member.model';
+
 
 ObjectType();
 class ResponseArray {
@@ -9,8 +11,8 @@ class ResponseArray {
   @Field()
   message: string;
 
-  @Field(() => [User], { nullable: true })
-  data?: [] | null;
+  @Field(() => [Object], { nullable: true })
+  data?: User[] | null | Member[];
 }
 
 ObjectType();
@@ -21,7 +23,7 @@ class ResponseData {
   @Field()
   message: string;
 
-  @Field(() => User, { nullable: true })
+  @Field(() => Object, { nullable: true })
   data?: object | null;
 }
 ObjectType();

@@ -1,8 +1,7 @@
 type MemberQuery {
-    getAll(churchId: Int , typeMember: Int): [Member]
-    getByRut(rut: ID!): Member
-    GetAllMemberProbation: [Member]
-    count: Int
+    getAll(churchId: Int , typeMember: Int): Response
+    getByRut(rut: ID!): Response
+    count: Response
 }
 type MemberMutation {
     create(member: MemberInput!): ResponseMutation
@@ -10,20 +9,20 @@ type MemberMutation {
     delete(rut: String!): ResponseMutation
 }
 type Member {
-    rut: ID!
-    names: String!
-    lastNameDad: String!
-    lastNameMom: String!
-    dateOfBirth: Date!
-    address: String!
+    rut: ID
+    names: String
+    lastNameDad: String
+    lastNameMom: String
+    dateOfBirth: Date
+    address: String
     telephone: String
-    mobile: String!
+    mobile: String
     email: String
-    maritalStatus: String!
+    maritalStatus: String
     probationStartDate: Date
     fullMembershipDate: Date
-    churchId: ID!
-    statusId: String!
+    churchId: ID
+    statusId: String
     userId: ID
     sexo: String
 }

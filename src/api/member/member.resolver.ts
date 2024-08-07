@@ -1,10 +1,22 @@
-import { Args, Field, Mutation, ObjectType, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Field,
+  Mutation,
+  ObjectType,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { Member } from '../../models/member.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
 import { LoggerService } from '../../common/loggers/logger.service';
-import { Response, ResponseArray, ResponseData } from '../../types/response.type';
+import {
+  Response,
+  ResponseArray,
+  ResponseData,
+} from '../../types/response.type';
 
 @ObjectType()
 class MemberQuery {
@@ -39,42 +51,14 @@ export class MemberQueriesResolver {
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseArray)
-  async getAll(@Args() args: any) {
-    this.logger.log('Member - getAll - Start');
-    try {
-      const members = await this.memberService.getAllMembers(args);
-      this.logger.log('Member - getAll - Success');
-      return {
-        code: 200,
-        message: 'Members retrieved successfully',
-        data: members,
-      };
-    } catch (error) {
-      this.logger.error('Member - getAll - Error');
-      throw new Error('Error retrieving members');
-    } finally {
-      this.logger.log('Member - getAll - End');
-    }
+  async getAll(@Args() args: any): Promise<ResponseArray> {
+    return await this.memberService.getAllMembers(args);
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseData)
   async getByRut(@Args('rut') rut: string): Promise<ResponseData> {
-    this.logger.log('Member - getByRut - Start');
-    try {
-      const member = await this.memberService.getMemberByRut(rut);
-      this.logger.log('Member - getByRut - Success');
-      return {
-        code: 200,
-        message: 'Member retrieved successfully',
-        data: member,
-      };
-    } catch (error) {
-      this.logger.error('Member - getByRut - Error');
-      throw new Error('Error retrieving member');
-    } finally {
-      this.logger.log('Member - getByRut - End');
-    }
+    return await this.memberService.getMemberByRut(rut);
   }
 
   @UseGuards(GqlAuthGuard)

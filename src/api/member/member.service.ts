@@ -4,7 +4,7 @@ import { Member } from '../../models/member.model';
 import { Op } from 'sequelize';
 import { CustomGraphQLError } from '../../common/errors/custom-error';
 import { LoggerService } from '../../common/loggers/logger.service';
-import { ResponseData } from '../../types/response.type';
+import { ResponseArray, ResponseData } from '../../types/response.type';
 
 @Injectable()
 export class MemberService {
@@ -14,7 +14,7 @@ export class MemberService {
     private readonly logger: LoggerService,
   ) {}
 
-  async getAllMembers(args: any) {
+  async getAllMembers(args: any): Promise<ResponseArray> {
     this.logger.log('Member - getAll - Service - Start:');
 
     let filterChurch = {};
@@ -53,12 +53,14 @@ export class MemberService {
         where: { ...filterChurch, ...filterType },
         order: [['names', 'ASC']],
       });
+      console.log(members);
       return {
         code: 200,
         message: 'Members retrieved successfully',
         data: members,
       };
     } catch (error) {
+      console.log(error);
       this.logger.error('Member - getAll - Service - Internal server error');
       throw new CustomGraphQLError('Internal server error', 500);
     }
@@ -68,36 +70,13 @@ export class MemberService {
     this.logger.log('Member - getByRut - Service - Start:');
     try {
       const member = await this.memberModel.findOne({ where: { rut } });
-      if (!member) {
-        this.logger.error('Member - getByRut - Service - Member not found');
-        throw new CustomGraphQLError('Member not found', 404);
-      }
       return {
         code: 200,
-        message: 'Member retrieved successfully',
+        message: member ? 'Member retrieved successfully' : 'Member not found',
         data: member,
       };
     } catch (error) {
       this.logger.error('Member - getByRut - Service - Internal server error');
-      throw new CustomGraphQLError('Internal server error', 500);
-    }
-  }
-
-  async getAllMemberProbation() {
-    this.logger.log('Member - getAllProbation - Service - Start:');
-    try {
-      const members = await this.memberModel.findAll({
-        where: { probationStartDate: '2024-06-23 00:00:00+00' },
-      });
-      return {
-        code: 200,
-        message: 'Members retrieved successfully',
-        data: members,
-      };
-    } catch (error) {
-      this.logger.error(
-        'Member - getAllProbation - Service - Internal server error',
-      );
       throw new CustomGraphQLError('Internal server error', 500);
     }
   }
@@ -109,7 +88,7 @@ export class MemberService {
       console.log(count);
       return {
         code: 200,
-        message: 'Members count retrieved successfully',
+        message: count ? 'Members count retrieved successfully' : 'No members',
         data: { count } as any,
       };
     } catch (error) {
