@@ -15,7 +15,7 @@ import { LoggerService } from '../../common/loggers/logger.service';
 import { Response, ResponseArray } from '../../types/response.type';
 
 @ObjectType()
-class MerriageRecordQueries {
+class MerriageRecordQuery {
   @Field(() => [MerriageRecord])
   getAll!: () => Promise<MerriageRecord[]>;
 
@@ -24,7 +24,7 @@ class MerriageRecordQueries {
 }
 
 @ObjectType()
-class MerriageRecordMutations {
+class MerriageRecordMutation {
   @Field(() => Response)
   create!: (merriageRecord: any) => Promise<Response>;
 
@@ -36,7 +36,7 @@ class MerriageRecordMutations {
   // delete!: (id: number) => Promise<Response>;
 }
 
-@Resolver(() => MerriageRecordQueries)
+@Resolver(() => MerriageRecordQuery)
 export class MerriageRecordQueriesResolver {
   constructor(
     private merriageRecordService: MerriageRecordService,
@@ -81,7 +81,7 @@ export class MerriageRecordQueriesResolver {
   }
 }
 
-@Resolver(() => MerriageRecordMutations)
+@Resolver(() => MerriageRecordMutation)
 export class MerriageRecordMutationsResolver {
   constructor(
     private merriageRecordService: MerriageRecordService,
@@ -145,12 +145,12 @@ export class MerriageRecordMutationsResolver {
 
 @Resolver()
 export class MerriageRecordResolver {
-  @Query(() => MerriageRecordQueries, { name: 'MerriageRecord' })
+  @Query(() => MerriageRecordQuery, { name: 'MerriageRecord' })
   getMerriageRecordQueries() {
     return {};
   }
 
-  @Mutation(() => MerriageRecordMutations, { name: 'MerriageRecord' })
+  @Mutation(() => MerriageRecordMutation, { name: 'MerriageRecord' })
   getMerriageRecordMutations() {
     return {};
   }

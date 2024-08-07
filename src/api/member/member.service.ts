@@ -4,6 +4,7 @@ import { Member } from '../../models/member.model';
 import { Op } from 'sequelize';
 import { CustomGraphQLError } from '../../common/errors/custom-error';
 import { LoggerService } from '../../common/loggers/logger.service';
+import { ResponseData } from '../../types/response.type';
 
 @Injectable()
 export class MemberService {
@@ -101,14 +102,15 @@ export class MemberService {
     }
   }
 
-  async countMembers() {
+  async countMembers(): Promise<ResponseData> {
     this.logger.log('Member - count - Service - Start:');
     try {
       const count = await this.memberModel.count();
+      console.log(count);
       return {
         code: 200,
         message: 'Members count retrieved successfully',
-        data: count,
+        data: { count } as any,
       };
     } catch (error) {
       this.logger.error('Member - count - Service - Internal server error');

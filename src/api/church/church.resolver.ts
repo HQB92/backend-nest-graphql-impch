@@ -19,7 +19,7 @@ import {
 } from '../../types/response.type';
 
 @ObjectType()
-class ChurchQueries {
+class ChurchQuery {
   @Field(() => [Church])
   getAll!: () => Promise<Church[]>;
 
@@ -28,7 +28,7 @@ class ChurchQueries {
 }
 
 @ObjectType()
-class ChurchMutations {
+class ChurchMutation {
   @Field(() => Response)
   create!: (church: any) => Promise<Response>;
 
@@ -39,7 +39,7 @@ class ChurchMutations {
   delete!: (id: number) => Promise<Response>;
 }
 
-@Resolver(() => ChurchQueries)
+@Resolver(() => ChurchQuery)
 export class ChurchQueriesResolver {
   constructor(
     private churchService: ChurchService,
@@ -87,7 +87,7 @@ export class ChurchQueriesResolver {
   }
 }
 
-@Resolver(() => ChurchMutations)
+@Resolver(() => ChurchMutation)
 export class ChurchMutationsResolver {
   constructor(
     private churchService: ChurchService,
@@ -145,12 +145,12 @@ export class ChurchMutationsResolver {
 
 @Resolver()
 export class ChurchResolver {
-  @Query(() => ChurchQueries, { name: 'Church' })
+  @Query(() => ChurchQuery, { name: 'Church' })
   getChurchQueries() {
     return {};
   }
 
-  @Mutation(() => ChurchMutations, { name: 'Church' })
+  @Mutation(() => ChurchMutation, { name: 'Church' })
   getChurchMutations() {
     return {};
   }

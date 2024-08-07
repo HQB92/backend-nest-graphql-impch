@@ -17,7 +17,7 @@ type UserMutations {
 type UserQueries {
   getAll: Response
   getById(id: ID!): Response
-  getByUsername(username: String!): Response
+#  getByUsername(username: String!): Response
 }
 
 input UserInput {

@@ -1,25 +1,13 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ObjectType,
-  Field,
-  ResolveField,
-} from '@nestjs/graphql';
+import { Args, Field, Mutation, ObjectType, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { Member } from '../../models/member.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
 import { LoggerService } from '../../common/loggers/logger.service';
-import {
-  Response,
-  ResponseData,
-  ResponseArray,
-} from '../../types/response.type';
+import { Response, ResponseArray, ResponseData } from '../../types/response.type';
 
 @ObjectType()
-class MemberQueries {
+class MemberQuery {
   @Field(() => [Member])
   getAll!: () => Promise<Member[]>;
 
@@ -31,7 +19,7 @@ class MemberQueries {
 }
 
 @ObjectType()
-class MemberMutations {
+class MemberMutation {
   @Field(() => Response)
   create!: (member: any) => Promise<Response>;
 
@@ -42,7 +30,7 @@ class MemberMutations {
   delete!: (id: number) => Promise<Response>;
 }
 
-@Resolver(() => MemberQueries)
+@Resolver(() => MemberQuery)
 export class MemberQueriesResolver {
   constructor(
     private memberService: MemberService,
@@ -93,24 +81,11 @@ export class MemberQueriesResolver {
   @ResolveField(() => ResponseData)
   async count(): Promise<ResponseData> {
     this.logger.log('Member - count - Start');
-    try {
-      const count = await this.memberService.countMembers();
-      this.logger.log('Member - count - Success');
-      return {
-        code: 200,
-        message: 'Members counted successfully',
-        data: count,
-      };
-    } catch (error) {
-      this.logger.error('Member - count - Error');
-      throw new Error('Error counting members');
-    } finally {
-      this.logger.log('Member - count - End');
-    }
+    return await this.memberService.countMembers();
   }
 }
 
-@Resolver(() => MemberMutations)
+@Resolver(() => MemberMutation)
 export class MemberMutationsResolver {
   constructor(
     private memberService: MemberService,
@@ -168,12 +143,12 @@ export class MemberMutationsResolver {
 
 @Resolver()
 export class MemberResolver {
-  @Query(() => MemberQueries, { name: 'Member' })
+  @Query(() => MemberQuery, { name: 'Member' })
   getMemberQueries() {
     return {};
   }
 
-  @Mutation(() => MemberMutations, { name: 'Member' })
+  @Mutation(() => MemberMutation, { name: 'Member' })
   getMemberMutations() {
     return {};
   }

@@ -19,16 +19,16 @@ import {
 } from '../../types/response.type';
 
 @ObjectType()
-class BaptismRecordQueries {
+class BaptismRecordQuery {
   @Field(() => [BaptismRecord])
   getAll!: () => Promise<BaptismRecord[]>;
 
   @Field(() => BaptismRecord, { nullable: true })
-  getById!: (id: number) => Promise<BaptismRecord | null>;
+  getByChildRut!: (id: number) => Promise<BaptismRecord | null>;
 }
 
 @ObjectType()
-class BaptismRecordMutations {
+class BaptismRecordMutation {
   @Field(() => Response)
   create!: (baptismRecord: any) => Promise<Response>;
 
@@ -39,7 +39,7 @@ class BaptismRecordMutations {
   delete!: (id: number) => Promise<Response>;
 }
 
-@Resolver(() => BaptismRecordQueries)
+@Resolver(() => BaptismRecordQuery)
 export class BaptismRecordQueriesResolver {
   constructor(
     private baptismRecordService: BaptismRecordService,
@@ -69,7 +69,7 @@ export class BaptismRecordQueriesResolver {
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseData)
-  async getById(@Args('id') id: number): Promise<ResponseData> {
+  async getByChildRut(@Args('id') id: number): Promise<ResponseData> {
     this.logger.log('BaptismRecord - getById - Start');
     try {
       const baptismRecord =
@@ -89,7 +89,7 @@ export class BaptismRecordQueriesResolver {
   }
 }
 
-@Resolver(() => BaptismRecordMutations)
+@Resolver(() => BaptismRecordMutation)
 export class BaptismRecordMutationsResolver {
   constructor(
     private baptismRecordService: BaptismRecordService,
@@ -149,12 +149,12 @@ export class BaptismRecordMutationsResolver {
 
 @Resolver()
 export class BaptismRecordResolver {
-  @Query(() => BaptismRecordQueries, { name: 'BaptismRecord' })
+  @Query(() => BaptismRecordQuery, { name: 'BaptismRecord' })
   getBaptismRecordQueries() {
     return {};
   }
 
-  @Mutation(() => BaptismRecordMutations, { name: 'BaptismRecord' })
+  @Mutation(() => BaptismRecordMutation, { name: 'BaptismRecord' })
   getBaptismRecordMutations() {
     return {};
   }

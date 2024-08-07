@@ -14,7 +14,7 @@ import { BankResolver } from './bank.resolver';
     DatabaseModule,
     forwardRef(() => OfferingModule),
   ],
-  providers: [BankService, BankResolver, LoggerService],
-  exports: [BankService, OfferingModule],
+  providers: [BankService, LoggerService, BankResolver],
+  exports: [BankService],
 })
 export class BankModule {}

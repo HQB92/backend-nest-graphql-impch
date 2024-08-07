@@ -20,7 +20,7 @@ import {
 } from '../../types/response.type';
 
 @ObjectType()
-class OfferingQueries {
+class OfferingQuery {
   @Field(() => [Offering])
   getAll!: () => Promise<Offering[]>;
 
@@ -33,7 +33,7 @@ class OfferingQueries {
 }
 
 @ObjectType()
-class OfferingMutations {
+class OfferingMutation {
   @Field(() => Response)
   create!: (offering: any) => Promise<Response>;
 
@@ -44,7 +44,7 @@ class OfferingMutations {
   delete!: (id: number) => Promise<Response>;
 }
 
-@Resolver(() => OfferingQueries)
+@Resolver(() => OfferingQuery)
 export class OfferingQueriesResolver {
   constructor(
     private offeringService: OfferingService,
@@ -134,7 +134,7 @@ export class OfferingQueriesResolver {
   }
 }
 
-@Resolver(() => OfferingMutations)
+@Resolver(() => OfferingMutation)
 export class OfferingMutationsResolver {
   constructor(
     private offeringService: OfferingService,
@@ -206,12 +206,12 @@ export class OfferingMutationsResolver {
 
 @Resolver()
 export class OfferingResolver {
-  @Query(() => OfferingQueries, { name: 'Offering' })
+  @Query(() => OfferingQuery, { name: 'Offering' })
   getOfferingQueries() {
     return {};
   }
 
-  @Mutation(() => OfferingMutations, { name: 'Offering' })
+  @Mutation(() => OfferingMutation, { name: 'Offering' })
   getOfferingMutations() {
     return {};
   }

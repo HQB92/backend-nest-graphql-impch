@@ -19,7 +19,7 @@ import {
 } from '../../types/response.type';
 
 @ObjectType()
-class StatusQueries {
+class StatusQuery {
   @Field(() => [Status])
   getAll!: () => Promise<Status[]>;
 
@@ -28,7 +28,7 @@ class StatusQueries {
 }
 
 @ObjectType()
-class StatusMutations {
+class StatusMutation {
   @Field(() => Response)
   create!: (status: any) => Promise<Response>;
 
@@ -39,7 +39,7 @@ class StatusMutations {
   delete!: (id: number) => Promise<Response>;
 }
 
-@Resolver(() => StatusQueries)
+@Resolver(() => StatusQuery)
 export class StatusQueriesResolver {
   constructor(
     private statusService: StatusService,
@@ -87,7 +87,7 @@ export class StatusQueriesResolver {
   }
 }
 
-@Resolver(() => StatusMutations)
+@Resolver(() => StatusMutation)
 export class StatusMutationsResolver {
   constructor(
     private statusService: StatusService,
@@ -157,12 +157,12 @@ export class StatusMutationsResolver {
 
 @Resolver()
 export class StatusResolver {
-  @Query(() => StatusQueries, { name: 'Status' })
+  @Query(() => StatusQuery, { name: 'Status' })
   getStatusQueries() {
     return {};
   }
 
-  @Mutation(() => StatusMutations, { name: 'Status' })
+  @Mutation(() => StatusMutation, { name: 'Status' })
   getStatusMutations() {
     return {};
   }

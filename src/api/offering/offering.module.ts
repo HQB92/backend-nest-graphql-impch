@@ -28,5 +28,6 @@ import { BankModule } from '../bank/bank.module';
     LoggerService,
     ChurchModule,
   ],
+  exports: [OfferingService],
 })
 export class OfferingModule {}
