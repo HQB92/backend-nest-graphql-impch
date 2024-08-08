@@ -11,7 +11,7 @@ export class BaptismRecord extends Model<BaptismRecord> {
     primaryKey: true,
     unique: true,
   })
-  childRUT: string;
+  childRut: string;
 
   @Column({
     type: DataType.STRING,
@@ -29,7 +29,7 @@ export class BaptismRecord extends Model<BaptismRecord> {
     type: DataType.STRING,
     allowNull: true,
   })
-  fatherRUT: string;
+  fatherRut: string;
 
   @Column({
     type: DataType.STRING,
@@ -41,7 +41,7 @@ export class BaptismRecord extends Model<BaptismRecord> {
     type: DataType.STRING,
     allowNull: false,
   })
-  motherRUT: string;
+  motherRut: string;
 
   @Column({
     type: DataType.STRING,

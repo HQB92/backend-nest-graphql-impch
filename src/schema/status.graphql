@@ -1,6 +1,6 @@
 type StatusQuery {
-    getAll: [Status]
-    getById(id: ID!): Status
+    getAll: Response
+    getById(id: ID!): Response
 }
 type StatusMutation {
     create(name: String!, description: String!): ResponseMutation

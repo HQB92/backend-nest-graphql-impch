@@ -1,12 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ObjectType,
-  Field,
-  ResolveField,
-} from '@nestjs/graphql';
+import { Args, Field, Mutation, ObjectType, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { MerriageRecordService } from './merriage-record.service';
 import { MerriageRecord } from '../../models/merriageRecord.model';
@@ -46,22 +38,7 @@ export class MerriageRecordQueriesResolver {
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseArray)
   async getAll() {
-    this.logger.log('MerriageRecord - getAll - Start');
-    try {
-      const merriageRecords =
-        await this.merriageRecordService.getAllMerriageRecords();
-      this.logger.log('MerriageRecord - getAll - Success');
-      return {
-        code: 200,
-        message: 'Merriage records retrieved successfully',
-        data: merriageRecords,
-      };
-    } catch (error) {
-      this.logger.error('MerriageRecord - getAll - Error');
-      throw new Error('Error retrieving merriage records');
-    } finally {
-      this.logger.log('MerriageRecord - getAll - End');
-    }
+    return await this.merriageRecordService.getAllMerriageRecords();
   }
 
   @UseGuards(GqlAuthGuard)
@@ -73,6 +50,7 @@ export class MerriageRecordQueriesResolver {
       this.logger.log('MerriageRecord - count - Success');
       return countMerriageRecords;
     } catch (error) {
+      console.log('error', error);
       this.logger.error('MerriageRecord - count - Error');
       throw new Error('Error counting merriage records');
     } finally {

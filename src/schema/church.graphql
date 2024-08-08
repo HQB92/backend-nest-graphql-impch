@@ -1,7 +1,6 @@
 type ChurchQuery {
-    getAll: [Church]
-    getById(id: ID!): Church
-    getByName(name: String!): Church
+    getAll: Response
+    getById(id: ID!): Response
 }
 type ChurchMutation {
     create(name: String!, address: String!): ResponseMutation

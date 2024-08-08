@@ -1,11 +1,11 @@
 import {
-  Resolver,
-  Query,
-  Mutation,
   Args,
-  ObjectType,
   Field,
+  Mutation,
+  ObjectType,
+  Query,
   ResolveField,
+  Resolver,
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { StatusService } from './status.service';
@@ -14,8 +14,8 @@ import { GqlAuthGuard } from '../auth/jwt-auth.guard';
 import { LoggerService } from '../../common/loggers/logger.service';
 import {
   Response,
-  ResponseData,
   ResponseArray,
+  ResponseData,
 } from '../../types/response.type';
 
 @ObjectType()
@@ -49,41 +49,13 @@ export class StatusQueriesResolver {
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseArray)
   async getAll() {
-    this.logger.log('Status - getAll - Start');
-    try {
-      const statuses = await this.statusService.getAllStatuses();
-      this.logger.log('Status - getAll - Success');
-      return {
-        code: 200,
-        message: 'Statuses retrieved successfully',
-        data: statuses,
-      };
-    } catch (error) {
-      this.logger.error('Status - getAll - Error');
-      throw new Error('Error retrieving statuses');
-    } finally {
-      this.logger.log('Status - getAll - End');
-    }
+    return await this.statusService.getAllStatuses();
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseData)
   async getById(@Args('id') id: number): Promise<ResponseData> {
-    this.logger.log('Status - getById - Start');
-    try {
-      const status = await this.statusService.getStatusById(id);
-      this.logger.log('Status - getById - Success');
-      return {
-        code: 200,
-        message: 'Status retrieved successfully',
-        data: status,
-      };
-    } catch (error) {
-      this.logger.error('Status - getById - Error');
-      throw new Error('Error retrieving status');
-    } finally {
-      this.logger.log('Status - getById - End');
-    }
+    return await this.statusService.getStatusById(id);
   }
 }
 

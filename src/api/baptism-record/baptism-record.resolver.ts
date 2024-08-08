@@ -1,22 +1,10 @@
-import {
-  Args,
-  Field,
-  Mutation,
-  ObjectType,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Field, Mutation, ObjectType, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { BaptismRecordService } from './baptism-record.service';
 import { BaptismRecord } from '../../models/baptismRecord.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
 import { LoggerService } from '../../common/loggers/logger.service';
-import {
-  Response,
-  ResponseArray,
-  ResponseData,
-} from '../../types/response.type';
+import { Response, ResponseArray, ResponseData } from '../../types/response.type';
 
 @ObjectType()
 class BaptismRecordQuery {
@@ -49,43 +37,13 @@ export class BaptismRecordQueriesResolver {
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseArray)
   async getAll() {
-    this.logger.log('BaptismRecord - getAll - Start');
-    try {
-      const baptismRecords =
-        await this.baptismRecordService.getAllBaptismRecords();
-      this.logger.log('BaptismRecord - getAll - Success');
-      return {
-        code: 200,
-        message: 'Baptism records retrieved successfully',
-        data: baptismRecords,
-      };
-    } catch (error) {
-      this.logger.error('BaptismRecord - getAll - Error');
-      throw new Error('Error retrieving baptism records');
-    } finally {
-      this.logger.log('BaptismRecord - getAll - End');
-    }
+    return await this.baptismRecordService.getAllBaptismRecords();
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseData)
   async getByChildRut(@Args('id') id: number): Promise<ResponseData> {
-    this.logger.log('BaptismRecord - getById - Start');
-    try {
-      const baptismRecord =
-        await this.baptismRecordService.getBaptismRecordById(id);
-      this.logger.log('BaptismRecord - getById - Success');
-      return {
-        code: 200,
-        message: 'Baptism record retrieved successfully',
-        data: baptismRecord,
-      };
-    } catch (error) {
-      this.logger.error('BaptismRecord - getById - Error');
-      throw new Error('Error retrieving baptism record');
-    } finally {
-      this.logger.log('BaptismRecord - getById - End');
-    }
+    return await this.baptismRecordService.getBaptismRecordById(id);
   }
 }
 

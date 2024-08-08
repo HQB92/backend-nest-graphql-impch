@@ -63,7 +63,7 @@ interface GraphQLErrorExtensions {
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(AuthMiddleware,)
+      .apply(AuthMiddleware, TransformResponseMiddleware)
       .forRoutes({ path: '/graphql', method: RequestMethod.ALL });
   }
 }

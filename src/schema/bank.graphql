@@ -1,7 +1,7 @@
 type BankQuery {
-    getAll(user: Int, churchId: Int, mes: Int, anio: Int): [Bank]
-    getSummaryAll(mes: Int, anio: Int, churchId:Int): [SummaryBankChurch]
-    getSummaryByChurch(churchId: Int, mes: Int, anio: Int): SummaryBankChurch
+    getAll(user: Int, churchId: Int, mes: Int, anio: Int): Response
+    getSummaryAll(mes: Int, anio: Int, churchId:Int): Response
+    getSummaryByChurch(churchId: Int, mes: Int, anio: Int): Response
 }
 
 type BankMutation {

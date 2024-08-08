@@ -19,8 +19,18 @@ export class BankService {
   ) {}
 
   async getSummaryBank(month: number, year: number) {
+    console.log('month', month);
+    console.log('year', year);
     this.logger.log('Bank - getSummaryBank - Service - Start:');
     this.logger.info('Bank - getSummaryBank - Service', { month, year });
+    if (!month || !year) {
+      this.logger.error(
+        'Bank - getSummaryBank - Service - Month and year are required',
+      );
+      throw new CustomGraphQLError('Month and year are required',
+        400);
+    }
+
     try {
       const results: any = await this.bankModel.findAll({
         attributes: [
@@ -30,7 +40,9 @@ export class BankService {
         ],
         where: {
           [Op.and]: [
-            literal(`EXTRACT(MONTH FROM "date") = ${month}`),
+            literal(
+              `EXTRACT(MONTH FROM "date") = ${month < 10 ? `0${month}` : month}`,
+            ),
             literal(`EXTRACT(YEAR FROM "date") = ${year}`),
           ],
         },
@@ -38,8 +50,10 @@ export class BankService {
       });
 
       if (!results.length) {
-        this.logger.error('Bank - getSummaryBank - Service - No results found');
-        throw new CustomGraphQLError('No results found', 404);
+        return {
+          code: 404,
+          message: 'No data found',
+        };
       }
       return {
         code: 200,

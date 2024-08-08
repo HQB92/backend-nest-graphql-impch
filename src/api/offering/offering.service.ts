@@ -82,6 +82,7 @@ export class OfferingService {
         },
         group: ['churchId', 'church.id'],
       });
+      console.log(results);
 
       if (!results.length) {
         this.logger.error(

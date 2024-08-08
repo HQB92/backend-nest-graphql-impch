@@ -22,6 +22,7 @@ export class MerriageRecordService {
         data: records,
       };
     } catch (error) {
+      console.log('error', error);
       this.logger.error(
         'MerriageRecord - getAll - Service - Internal server error',
       );

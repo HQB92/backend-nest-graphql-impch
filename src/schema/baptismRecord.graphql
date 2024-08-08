@@ -1,13 +1,13 @@
 type BaptismRecordQuery {
-    getAll: [BaptismRecord]
-    getByChildRut(childRUT: ID!): BaptismRecord
-    count: Int
+    getAll: Response
+    getByChildRut(childRUT: ID!): Response
+    count: Response
 }
 
 type BaptismRecordMutation {
     create(baptismRecord: BaptismRecordInput!): ResponseMutation
     update(baptismRecord: BaptismRecordInput): ResponseMutation
-    delete(childRUT: ID!): Response
+    delete(childRUT: ID!): ResponseMutation
 }
 
 type BaptismRecord {

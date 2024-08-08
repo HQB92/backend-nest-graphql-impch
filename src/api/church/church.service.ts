@@ -16,6 +16,7 @@ export class ChurchService {
     this.logger.log('Church - getAll - Service - Start:');
     try {
       const churches = await this.churchModel.findAll();
+      console.log(churches);
       return {
         code: 200,
         message: 'Churches retrieved successfully',
@@ -29,12 +30,12 @@ export class ChurchService {
 
   async getChurchById(id: number) {
     this.logger.log('Church - getById - Service - Start:');
+    const church = await this.churchModel.findByPk(id);
+    if (!church) {
+      this.logger.error('Church - getById - Service - Church not found');
+      throw new CustomGraphQLError('Church not found', 404);
+    }
     try {
-      const church = await this.churchModel.findByPk(id);
-      if (!church) {
-        this.logger.error('Church - getById - Service - Church not found');
-        throw new CustomGraphQLError('Church not found', 404);
-      }
       return {
         code: 200,
         message: 'Church retrieved successfully',

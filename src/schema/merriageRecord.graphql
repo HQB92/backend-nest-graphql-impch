@@ -1,6 +1,6 @@
 type MerriageRecordQuery {
-    getAll: [MerriageRecord]
-    count: Int
+    getAll: Response
+    count: Response
 }
 
 type MerriageRecordMutation {

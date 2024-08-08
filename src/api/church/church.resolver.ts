@@ -49,41 +49,13 @@ export class ChurchQueriesResolver {
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseArray)
   async getAll() {
-    this.logger.log('Church - getAll - Start');
-    try {
-      const churches = await this.churchService.getAllChurches();
-      this.logger.log('Church - getAll - Success');
-      return {
-        code: 200,
-        message: 'Churches retrieved successfully',
-        data: churches,
-      };
-    } catch (error) {
-      this.logger.error('Church - getAll - Error');
-      throw new Error('Error retrieving churches');
-    } finally {
-      this.logger.log('Church - getAll - End');
-    }
+    return await this.churchService.getAllChurches();
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseData)
-  async getById(@Args('id') id: number): Promise<ResponseData> {
-    this.logger.log('Church - getById - Start');
-    try {
-      const church = await this.churchService.getChurchById(id);
-      this.logger.log('Church - getById - Success');
-      return {
-        code: 200,
-        message: 'Church retrieved successfully',
-        data: church,
-      };
-    } catch (error) {
-      this.logger.error('Church - getById - Error');
-      throw new Error('Error retrieving church');
-    } finally {
-      this.logger.log('Church - getById - End');
-    }
+  async getById(@Args('id') id: number): Promise<object> {
+    return await this.churchService.getChurchById(id);
   }
 }
 

@@ -1,23 +1,11 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ObjectType,
-  Field,
-  ResolveField,
-} from '@nestjs/graphql';
+import { Args, Field, Mutation, ObjectType, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { OfferingService } from './offering.service';
 import { BankService } from '../bank/bank.service';
 import { Offering } from '../../models/offering.model';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
 import { LoggerService } from '../../common/loggers/logger.service';
-import {
-  Response,
-  ResponseData,
-  ResponseArray,
-} from '../../types/response.type';
+import { Response, ResponseArray, ResponseData } from '../../types/response.type';
 
 @ObjectType()
 class OfferingQuery {
@@ -55,26 +43,13 @@ export class OfferingQueriesResolver {
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => ResponseArray)
   async getAll(@Args() args: any) {
-    this.logger.log('Offering - getAll - Start');
-    try {
-      const offerings = await this.offeringService.getAllOfferings(
-        args.user,
-        args.churchId,
-        args.mes,
-        args.anio,
-      );
-      this.logger.log('Offering - getAll - Success');
-      return {
-        code: 200,
-        message: 'Offerings retrieved successfully',
-        data: offerings,
-      };
-    } catch (error) {
-      this.logger.error('Offering - getAll - Error');
-      throw new Error('Error retrieving offerings');
-    } finally {
-      this.logger.log('Offering - getAll - End');
-    }
+    console.log('args', args);
+    return await this.offeringService.getAllOfferings(
+      args.user,
+      args.churchId,
+      args.mes,
+      args.anio,
+    );
   }
 
   @UseGuards(GqlAuthGuard)

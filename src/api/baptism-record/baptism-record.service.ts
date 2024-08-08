@@ -26,6 +26,7 @@ export class BaptismRecordService {
         data: records,
       };
     } catch (error) {
+      console.log('error', error);
       this.logger.error(
         'BaptismRecord - getAll - Service - Internal server error',
       );
@@ -58,10 +59,10 @@ export class BaptismRecordService {
 
   async createBaptismRecord(baptismRecordData: any) {
     this.logger.log('BaptismRecord - create - Service - Start:');
-    const { childRUT } = baptismRecordData;
+    const { childRut } = baptismRecordData;
     try {
       const existingRecord = await this.baptismRecordModel.findOne({
-        where: { childRUT },
+        where: { childRut },
       });
       if (existingRecord) {
         this.logger.error(
